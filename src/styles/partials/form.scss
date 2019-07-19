@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+.form1{
+    font-family:'PT Sans', sans-serif;
+    background: #de9bb4;
+	border: 5px solid black;
+	border-radius: 4px;
+	font-size: 20px;
+	margin: 0;
+	outline: 0;
+    padding-left: 2%;
+    padding-top: 2%;
+    width: 50%;
+    margin-bottom: 50px;
+  
+}
+
+input[type=text] {
+    border: none;
+    width:60%;
+    height:30px;
+
+}
