@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
-// import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/FormControl';
+
 
 var apiKey ='9399d401d83ef3ae9c95f9c9907d8376';
 
@@ -17,19 +20,26 @@ class MyForm extends React.Component{
     }
     handleChange=(event)=>{                                  // Has to retreive the user input value that we get in our handleChange method. This gets the string value of whatever the user has inputted 
        this.setState({                                       //re render dom when user access keeebs
-            userInput: event.target.value           
+            userInput: event.target.value        
         })
     }
 
     // This is a function that gets called when the user clicks submit
     handleOnSubmit() {
+        //had to modify user input to match JSON file name/case sensitivity & structure
+        let modifiedUserInput = this.state.userInput.charAt(0).toUpperCase()+this.state.userInput.slice(1);
+  
         const onlyCuisineWeCareAbout = this.state.cuisineArray.filter((cuisine) => {         //grab the current state of user input -- that we get from handle change.
-            return cuisine.cuisine_name === this.state.userInput                            //Filtered through the cuisine array that holds objects with only cuisine ID and name and return the cuisine name that matches the string inputted from user
+            return cuisine.cuisine_name === modifiedUserInput                          //Filtered through the cuisine array that holds objects with only cuisine ID and name and return the cuisine name that matches the string inputted from user
         })
-    //    console.log(onlyCuisineWeCareAbout)                                               //Then CuisneWecareAbout returns an array(filter returns array) with ONE object from cuisineArray that matches user input 
 
-        this.fetchRestaurantData(onlyCuisineWeCareAbout[0].cuisine_id);                     //Called the second api to access the first and only element in that array, which is an object and the property we wa t
-                                                                                            // PASS IT the cuisine_id value that we are able to get from the  object attributes-- cuisine_id
+        //some error checking
+        if(onlyCuisineWeCareAbout && onlyCuisineWeCareAbout[0] === undefined){
+            alert(`Sorry we could not find ${this.state.userInput}. Please enter another cuisine type `);
+        } else{ 
+            this.fetchRestaurantData(onlyCuisineWeCareAbout[0].cuisine_id);                     //Then CuisneWecareAbout returns an array(filter returns array) with ONE object from cuisineArray that matches user input 
+        }                                                                                       //Called the second api to access the first and only element in that array, which is an object and the property we wa t
+                                                                                                // PASS IT the cuisine_id value that we are able to get from the  object attributes-- cuisine_id                                                                                                                                                                  
         
         //OnClick - clear user input field 
         this.setState({userInput: ''})
@@ -91,21 +101,25 @@ class MyForm extends React.Component{
     renderRestaurantOptions(){
         const restaurantName = this.state.restoArray.map((res)=>{    //must return jsx to show on second return      
             return (
-                <div key={res.restaurant.id}>
-                    <h2>{res.restaurant.name}</h2>
-                    <p>Average cost for 2 persons: ${res.restaurant.average_cost_for_two}</p>
-                    <img alt='' src={res.restaurant.featured_image}/>
-     
-                </div>
+                <section>
+                    <div className='restoCard' key={res.restaurant.id}>
+                        <img alt='' src={res.restaurant.featured_image}/>
+                        <h2 className='restoName'>{res.restaurant.name}</h2>
+                        <p>Average cost for 2 persons: ${res.restaurant.average_cost_for_two}</p>
+                    </div>
+                </section>
             )          
         })
         return(
             <div>
-                <div>{restaurantName} </div>   
+                <h1 className='listHeader'>List of Restaurants</h1>
+                <div className='restoList'>{restaurantName} </div>   
             </div>
 
         )
     }
+
+   
 
    //Calling our functions that retrieve API data 
     componentDidMount(){
@@ -114,18 +128,28 @@ class MyForm extends React.Component{
     render(){
         return(
             <main>
-                <label>
-                    Enter type of cuisine you want to eat:
-                    <input type='text' value={this.state.userInput} onChange={this.handleChange}/>
-                    <Button variant='contained' color='primary' onClick={()=>this.handleOnSubmit()}>submit</Button>
-                </label>
-                <h2>List of Restaurant Options</h2>
-                { this.state.restoArray.length >0 ? this.renderRestaurantOptions():<p>the resto array is empty</p> }
-               
-                {/* <h2> list of cuisines</h2> */}
-                {/* { this.state.cuisineArray.length >0 ? this.renderCuisine():<p>the cuisine array is empty</p> } */}
-                {/* {this.handleOnSubmit()} */}
-                {/* {this.renderRestaurantOptions()} */}
+                <div className='mainWrap'>
+                    <div className='wrapper'>
+                    <FormControl className='formControl'>
+                        <TextField  variant="outlined" type='text' 
+                        label="enter type of cuisine" 
+                        value={this.state.userInput} 
+                        onChange={this.handleChange}/> 
+                         <InputLabel 
+                         style={{marginTop:3+'px',
+                         marginLeft:2+'px', 
+                         fontStyle:'italic', 
+                         color:'#3b3b39'}}>What kind of food are we craving today?</InputLabel>
+                    </FormControl>
+                    </div>
+                    <Button  
+                    variant='contained' color='primary' 
+                    style={{marginTop:14+'px', width:10+'%',marginBottom:2.4+'%',
+                    marginLeft:5+'px',
+                    fontSize:15}}
+                    onClick={()=>this.handleOnSubmit()}>submit</Button>
+                </div>
+                { this.state.restoArray.length >0 ? this.renderRestaurantOptions():<img  className='gif-image' src={require("../assets/ryanGosling.gif")} alt="rachel mcadams cant fucking decide" /> }
 
             </main>
         )

@@ -1,4 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=PT+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap');
+
+
+
 .form1{
     font-family:'PT Sans', sans-serif;
     background: #de9bb4;
@@ -20,3 +24,80 @@ input[type=text] {
     height:30px;
 
 }
+
+.wrapper{
+    margin-left: 55%;
+    padding-top: 13px;
+    width: 30%;
+    display: flex;
+    padding-bottom: 11px;
+
+}
+
+.formControl{
+  width: 100%;
+
+}
+
+.header{
+    margin-left: 5%;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 20px;
+}
+
+.mainWrap{
+    display: flex;
+
+}
+
+.gif-image{
+    margin-left: 5%;
+    width: 600px;
+    height: 250px;
+    
+}
+
+.restoList{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow-y: scroll;
+    height: 600px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 8%;
+}
+
+.restoCard{
+    padding-right: 30px;
+    padding-left: 30px;
+    margin-top: 10%;
+
+        cursor: pointer;
+        color: black;
+      
+        p {
+            font-size: 18px;
+        }
+        .restoName {
+            font-size: 25px;
+            color:black;
+            line-height: 0.8em;
+        }
+        
+        img {
+            border: 6px solid white;
+            margin: 0 auto;
+            height: 250px;
+            width:300px;
+        }
+}
+
+.listHeader{
+    margin-left: 8%;
+
+}
+
+
+
+
+
