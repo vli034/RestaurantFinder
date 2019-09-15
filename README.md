@@ -1,5 +1,5 @@
 # RestaurantFinder 
-A simple website to showcase the use of handling API's with axios. The website helps users find what they want to eat based on cuisine type. Once the users enters type of cuisine they are interested in, it will output a list of restaurants based on user input! 
+A simple website build with React.js to showcase the use of handling API's with axios. The website helps users find what they want to eat based on cuisine type. Once the users enters type of cuisine they are interested in, it will output a list of restaurants based on user input! 
 
 # UI Design 
 How the page looks before user input:
